@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Push Notification codelab</title>
+    <link rel="manifest" href="manifest.json">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="./main.js"></script>
+    <style>
+      *{
+        line-height: 150%;
+      }
+      #msg{
+        border: 1px solid #999;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Push通知 検証</h1>
+    <p>通知を許可した上で下記コマンドを任意のコンソールから実行すると、このブラウザを開いているクライアントにPush通知が達します。</p>
+    <div id="msg">curl --header "Authorization: key=AIzaSyDfHdzNmpo8L_LQ34SQUDzBPAE7CS6vZZs" --header "Content-Type: application/json" https://android.googleapis.com/gcm/send -d "{\"registration_ids\":[\"<span class="registration_ids"></span>\"]}"</div>
+    <br>
+    <div>このクライアントのregistration_id:<br>
+    <span class="registration_ids" style="font-weight: bold;"></span></div>
+    <br>
+    <ul>
+      <li>上記の「registration_id」はブラウザを開いた都度更新される。</li>
+      <li>複数クライアントへのPush通知は以下の流れで処理</li>
+      <li>1. 各クライアントのregistration_idをPush通知を管理するサーバーに登録しておく。(Ajax？)</li>
+      <li>2. curlコマンドのオプションにある"registration_ids"にそれらのregistration_idを配列として適用する。</li>
+      <li>3. コマンド実行で各クライアントにPush通知が届けられる。(当然だが、このページを開いていなくても届く)</li>
+      <li>通知窓をクリックすると設定されたリンク先が開く。</li>
+      <li>通知のタイトル・文言・アイコン・リンク先は<a href="service-worker.js">sw.js</a>で設定。動的に変更可能かは未調査。</li>
+    </ul>
+  </body>
+</html>
